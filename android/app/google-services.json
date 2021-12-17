@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "535273678988",
+    "firebase_url": "https://iot-gp-be23a-default-rtdb.firebaseio.com",
+    "project_id": "iot-gp-be23a",
+    "storage_bucket": "iot-gp-be23a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535273678988:android:7a9aebbfb58f9fa56ef3a9",
+        "android_client_info": {
+          "package_name": "com.example.garage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "535273678988-2kvh4nge7bd9u4t8v6sa5fr54s3sl4mv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQg6pDutTxMeNAVjuGYZBeQg07VSYpQVg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "535273678988-2kvh4nge7bd9u4t8v6sa5fr54s3sl4mv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
