@@ -42,6 +42,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final databaseReferenceTest = FirebaseDatabase.instance.reference();
   final databaseReferenceTest1 = FirebaseDatabase.instance.reference();
+  final databaseReferenceTest2 = FirebaseDatabase.instance.reference();
 
   Status s = new Status();
   bool emptyRouteNameField = false;
@@ -49,12 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    s.s0 = 0;
-    s.s1 = 0;
-    s.s2 = 0;
-    s.s3 = 0;
-    s.s4 = 0;
-    s.s5 = 0;
+    s.state=[0,0,0,0,0,0];
     databaseReferenceTest
         .child('status')
         .onValue
@@ -105,19 +101,25 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(width: 15),
+                //----------------->slot 0
                 InkWell(
                   onTap: () {
-                    s.s0 = 0;
+                    if(s.state[0]>15||s.state[0]==0)//free to be reserved
                     changeState(0);
-                  },
-                  child: Slot(c: s.s0 > 15 ? Colors.green
-                      : s.s0 == 0 ? Colors.blue : Colors.red,
+                    },
+                  child: Slot(c: s.state[0] > 15 ? Colors.green
+                      : s.state[0] == 0 ? Colors.blue : Colors.red,
                     t: "P1",),
                 ),
                 SizedBox(width: 40),
+                //-----------------> slot 1
                 InkWell(
-                  child: Slot(c: s.s1 > 15 ? Colors.green
-                      : s.s1 == 0 ? Colors.blue : Colors.red,
+                  onTap: () {
+                    if(s.state[1]>15||s.state[1]==0)//free to be reserved
+                      changeState(1);
+                  },
+                  child: Slot(c: s.state[1] > 15 ? Colors.green
+                      : s.state[1] == 0 ? Colors.blue : Colors.red,
                     t: "P2",),)
               ],
             ),
@@ -126,13 +128,27 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(width: 15),
-                Slot(c: s.s2 > 15 ? Colors.green
-                    : s.s2 == 0 ? Colors.blue : Colors.red,
-                  t: "P3",),
+                //------------------> slot 2
+                InkWell(
+                  onTap: () {
+                    if(s.state[2]>15||s.state[2]==0)//free to be reserved
+                      changeState(2);
+                  },
+                  child: Slot(c: s.state[2] > 15 ? Colors.green
+                      : s.state[2] == 0 ? Colors.blue : Colors.red,
+                    t: "P3",),
+                ),
                 SizedBox(width: 40),
-                Slot(c: s.s3 > 15 ? Colors.green
-                    : s.s3 == 0 ? Colors.blue : Colors.red,
-                  t: "P4",),
+                //----------------> slot 3
+                InkWell(
+                  onTap: () {
+                    if(s.state[3]>15||s.state[3]==0)//free to be reserved
+                      changeState(3);
+                  },
+                  child: Slot(c: s.state[3] > 15 ? Colors.green
+                      : s.state[3] == 0 ? Colors.blue : Colors.red,
+                    t: "P4",),
+                ),
               ],
             ),
             SizedBox(height: 20,),
@@ -141,13 +157,27 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(width: 15),
-                Slot(c: s.s4 > 15 ? Colors.green
-                    : s.s4 == 0 ? Colors.blue : Colors.red,
-                  t: "P5",),
+                //-------------------> slot 4
+                InkWell(
+                  onTap: () {
+                    if(s.state[4]>15||s.state[4]==0)//free to be reserved
+                      changeState(4);
+                  },
+                  child: Slot(c: s.state[4] > 15 ? Colors.green
+                      : s.state[4] == 0 ? Colors.blue : Colors.red,
+                    t: "P5",),
+                ),
                 SizedBox(width: 40),
-                Slot(c: s.s5 > 15 ? Colors.green
-                    : s.s5 == 0 ? Colors.blue : Colors.red,
-                  t: "P6",),
+                //-------------> slot 5
+                InkWell(
+                  onTap: () {
+                    if(s.state[5]>15||s.state[5]==0)//free to be reserved
+                      changeState(5);
+                  },
+                  child: Slot(c: s.state[5] > 15 ? Colors.green
+                      : s.state[5] == 0 ? Colors.blue : Colors.red,
+                    t: "P6",),
+                ),
               ],
             ),
             SizedBox(height: 30,),
@@ -169,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-   changeState(int p) {
+   changeState(int p ) {
     TextEditingController routeName = TextEditingController();
     bool emptyRouteNameField = false;
 
@@ -213,12 +243,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
                         padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
                         onPressed: () async {
-                          routeName.text.isEmpty? makeErrorBrder(): makeChange(p,
-                          routeName.text);
+                          routeName.text.isEmpty? makeErrorBrder(): s.state[p]!=0?
+                          makeChange(p,
+                          routeName.text):confirmRes(p,routeName.text);
                           if (routeName.text.isNotEmpty) Navigator.pop(context);
                         },
                         child: Text(
-                          "Book now!",
+                          s.state[p]!=0?"Book now!":"confirm",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 20.0,
@@ -247,6 +278,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   makeChange(int p,String number) {
     setState(() {
+      s.state[p]=0;
       databaseReferenceTest
           .child('status').set(
         s.toString(),
@@ -256,12 +288,26 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     databaseReferenceTest1
-        .child('reserved').set({
+        .child('s'+p.toString()).set({
       's' + p.toString():number
     });
 
 
     }
+
+  void confirmRes(int p, String carNum) {
+    databaseReferenceTest
+        .child('s'+p.toString()).once().then((value) {
+          if(value.value['s'+p.toString()]==carNum)
+            setState(() {
+              s.state[p]=5;
+              databaseReferenceTest
+                  .child('status').set(
+                s.toString(),
+              );
+            });
+    });
+  }
 
 }
 
