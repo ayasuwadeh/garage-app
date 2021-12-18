@@ -288,9 +288,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     databaseReferenceTest1
-        .child('s'+p.toString()).set({
-      's' + p.toString():number
-    });
+        .child('s'+p.toString()).set(
+      number);
 
 
     }
@@ -298,7 +297,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void confirmRes(int p, String carNum) {
     databaseReferenceTest
         .child('s'+p.toString()).once().then((value) {
-          if(value.value['s'+p.toString()]==carNum)
+          if(value.value==carNum)
             setState(() {
               s.state[p]=5;
               databaseReferenceTest
